@@ -1,4 +1,4 @@
-
+import java.util.*; 
 public class CustomLinkedList {
 	private Node head;
 	private int count;
@@ -8,7 +8,28 @@ public class CustomLinkedList {
 		CustomLinkedList list = new CustomLinkedList();
 		list.add(4);
 		list.add("Hello World");
+		list.add("as World");
 		list.add("new World");
+		list.add(4);
+		list.add("as World");
+		list.add("new World");
+		/*list.add(4);
+		list.add("as World");
+		list.add(4);
+		list.add("Hello World");
+		list.add("as World");
+		list.add("new World");
+		list.add(4);
+		list.add("as World");
+		list.add("asdsad World");
+		list.add(7);*/
+		
+		//list.printList();
+		//list.removeDuplicate();
+		//list.removeDuplicateBuffer();
+		//Object value = list.findKthElementLast(3);
+		//System.out.println(value);
+		list.removeNode(3);
 		list.printList();
 	}
 	
@@ -40,6 +61,80 @@ public class CustomLinkedList {
 		System.out.println(currentNode.getData());
 	}
 	
+	public void removeDuplicate(){	
+		Node currentNode = head.getNextNode();
+		Node prevNode = null;
+		HashMap<Object,Boolean> map = new HashMap<Object,Boolean>();
+		while(currentNode != null){
+			//System.out.println(currentNode.getData());
+			if(map.containsKey(currentNode.getData())){
+				//System.out.println("There is a duplicate:" + map.containsKey(currentNode.getData()));
+				Node nextNode = currentNode.getNextNode();
+				/*if(nextNode != null){
+					currentNode.setData(nextNode.getData());
+					currentNode.setNextNode(nextNode.getNextNode());
+				}*/
+				prevNode.setNextNode(nextNode);
+			}else{
+				map.put(currentNode.getData(), false);
+				prevNode = currentNode; 
+			}
+			
+			currentNode = currentNode.getNextNode();
+			
+		}
+	}
+	
+	public void removeDuplicateBuffer(){	
+		
+		Node currentNode = head.getNextNode();
+		
+		while(currentNode != null){
+			Object data = currentNode.getData();
+			Node racer = currentNode; 
+			while(racer.getNextNode() != null){
+				Node nextNode = racer.getNextNode();
+				if(data == nextNode.getData()){
+					racer.setNextNode(nextNode.getNextNode());
+				}else{
+					racer = racer.getNextNode();
+				}
+			}
+			currentNode = currentNode.getNextNode();
+		}
+		
+	}
+	
+	public Object findKthElementLast(int k){
+		
+		Node bufferNode = head.getNextNode();
+		Node finalNode = head.getNextNode();
+		int count = 1; 
+		while(bufferNode.getNextNode() != null){
+			if(count >= k){
+				finalNode = finalNode.getNextNode();
+			}
+			bufferNode = bufferNode.getNextNode();
+			count++;
+		}
+		return finalNode.getData(); 
+	}
+	
+	public void removeNode(int k){
+		
+		Node bufferNode = head.getNextNode();
+		int count =1;
+		while(bufferNode.getNextNode() != null){
+			if(count == k){
+				bufferNode.setData(bufferNode.getNextNode().getData());
+				bufferNode.setNextNode(bufferNode.getNextNode().getNextNode());
+			}
+			count++;
+			bufferNode =bufferNode.getNextNode();
+		}
+			
+	}
+	
 	private class Node{
 		
 		Node next = null;
@@ -61,6 +156,9 @@ public class CustomLinkedList {
 			next = newNode; 
 		}
 		
+		public void setData(Object newData){
+			nodeData = newData; 
+		}
 	}
 	
 }
