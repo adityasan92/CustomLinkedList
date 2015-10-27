@@ -13,7 +13,7 @@ public class CustomLinkedList {
 		list.add(4);
 		list.add("as World");
 		list.add("new World");
-		/*list.add(4);
+		list.add(4);
 		list.add("as World");
 		list.add(4);
 		list.add("Hello World");
@@ -22,7 +22,7 @@ public class CustomLinkedList {
 		list.add(4);
 		list.add("as World");
 		list.add("asdsad World");
-		list.add(7);*/
+		list.add(7);
 		
 		//list.printList();
 		//list.removeDuplicate();
