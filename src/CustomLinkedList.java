@@ -135,6 +135,26 @@ public class CustomLinkedList {
 			
 	}
 	
+	public void partition(int k){
+		Node listBefore = head;
+		Node listAfter = null;
+		Node startBuffer = head.getNextNode();
+		Node equalList = null;
+		Node finalBuffer = null;
+		while(startBuffer != null){
+			if((Integer)startBuffer.getData() < k){
+				listBefore.setNextNode(startBuffer);
+			}else if((Integer)startBuffer.getData() == k){
+				equalList.setNextNode(startBuffer);
+			}else{
+				listAfter.setNextNode(startBuffer);
+			}
+			startBuffer = startBuffer.getNextNode();
+		}
+		
+		
+	}
+	
 	private class Node{
 		
 		Node next = null;
