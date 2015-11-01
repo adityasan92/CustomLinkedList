@@ -7,7 +7,7 @@ public class CustomLinkedList {
 		// TODO Auto-generated method stub
 		CustomLinkedList list = new CustomLinkedList();
 		list.add(4);
-		list.add("Hello World");
+		/*list.add("Hello World");
 		list.add("as World");
 		list.add("new World");
 		list.add(4);
@@ -21,7 +21,13 @@ public class CustomLinkedList {
 		list.add("new World");
 		list.add(4);
 		list.add("as World");
-		list.add("asdsad World");
+		list.add("asdsad World");*/
+		list.add(7);
+		list.add(3);
+		list.add(8);
+		list.add(9);
+		list.add(1);
+		list.add(2);
 		list.add(7);
 		
 		//list.printList();
@@ -29,7 +35,8 @@ public class CustomLinkedList {
 		//list.removeDuplicateBuffer();
 		//Object value = list.findKthElementLast(3);
 		//System.out.println(value);
-		list.removeNode(3);
+		//list.removeNode(3);
+		list.partition(9);
 		list.printList();
 	}
 	
@@ -136,23 +143,49 @@ public class CustomLinkedList {
 	}
 	
 	public void partition(int k){
-		Node listBefore = head;
-		Node listAfter = null;
+		Node startBeforeList = null;
+		Node endBeforeList = null;
+		Node startLastList = null;
+		Node endLastList = null;
 		Node startBuffer = head.getNextNode();
-		Node equalList = null;
-		Node finalBuffer = null;
+
 		while(startBuffer != null){
-			if((Integer)startBuffer.getData() < k){
-				listBefore.setNextNode(startBuffer);
-			}else if((Integer)startBuffer.getData() == k){
-				equalList.setNextNode(startBuffer);
+			//System.out.println((Integer)startBuffer.getData());
+			if((Integer)startBuffer.getData() <k ){
+				if(startBeforeList == null){
+					startBeforeList = startBuffer;
+					endBeforeList = startBeforeList;
+				}else{
+					endBeforeList.setNextNode(startBuffer);
+					endBeforeList = startBuffer;
+				}
 			}else{
-				listAfter.setNextNode(startBuffer);
+				if(startLastList == null){
+					startLastList = startBuffer;
+					endLastList = startLastList;
+				}else{
+					endLastList.setNextNode(startBuffer);
+					endLastList = startBuffer;
+				}
 			}
+			
 			startBuffer = startBuffer.getNextNode();
 		}
 		
+		//merge the list
+		if(startBeforeList != null){
+			head.setNextNode(startBeforeList);
+			endBeforeList.setNextNode(startLastList);
+		}else{
+			head.setNextNode(startLastList);
+		}
+	}
+	
+	public CustomLinkedList addLinkedList(CustomLinkedList a, CustomLinkedList b) 
+	{
+	
 		
+		return a;
 	}
 	
 	private class Node{
