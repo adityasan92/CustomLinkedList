@@ -22,7 +22,7 @@ public class CustomLinkedList {
 		list.add(4);
 		list.add("as World");
 		list.add("asdsad World");*/
-		list.add(7);
+		//list.add(7);
 		list.add(3);
 		list.add(8);
 		list.add(9);
@@ -36,7 +36,11 @@ public class CustomLinkedList {
 		//Object value = list.findKthElementLast(3);
 		//System.out.println(value);
 		//list.removeNode(3);
-		list.partition(9);
+		//list.partition(7);
+		//Node circular = list.circularElement();
+		//System.out.println(circular.getData());
+		//System.out.println(circular.getNextNode().getData());
+		list.reverseList();
 		list.printList();
 	}
 	
@@ -75,12 +79,7 @@ public class CustomLinkedList {
 		while(currentNode != null){
 			//System.out.println(currentNode.getData());
 			if(map.containsKey(currentNode.getData())){
-				//System.out.println("There is a duplicate:" + map.containsKey(currentNode.getData()));
 				Node nextNode = currentNode.getNextNode();
-				/*if(nextNode != null){
-					currentNode.setData(nextNode.getData());
-					currentNode.setNextNode(nextNode.getNextNode());
-				}*/
 				prevNode.setNextNode(nextNode);
 			}else{
 				map.put(currentNode.getData(), false);
@@ -175,6 +174,7 @@ public class CustomLinkedList {
 		//merge the list
 		if(startBeforeList != null){
 			head.setNextNode(startBeforeList);
+			endLastList.setNextNode(null);
 			endBeforeList.setNextNode(startLastList);
 		}else{
 			head.setNextNode(startLastList);
@@ -183,9 +183,47 @@ public class CustomLinkedList {
 	
 	public CustomLinkedList addLinkedList(CustomLinkedList a, CustomLinkedList b) 
 	{
-	
+		int carry =0;
+		CustomLinkedList c = new CustomLinkedList(); 
+		while(a != null && b != null){
+			
+			
+		}
 		
-		return a;
+		return c;
+	}
+	
+	public Node circularElement(){
+		Node startBuffer = head.getNextNode();
+		HashMap<Node,Node> map = new HashMap<Node,Node>();
+		Node circularNode = null;
+		while(startBuffer != null){
+			if(map.containsKey(startBuffer.getNextNode())){
+				System.out.println("Contians CircularList");
+				circularNode = startBuffer;
+				break;
+			}else{
+				map.put(startBuffer.getNextNode(),startBuffer);
+			}	
+			startBuffer = startBuffer.getNextNode();
+		}
+		System.out.println(map.size());
+		return circularNode;
+	
+	}
+	
+	public void reverseList(){
+		Node prevNode= null;
+		Node nextNode;
+		Node runner =head.getNextNode();
+		while(runner != null){
+			nextNode = runner.getNextNode();
+			runner.setNextNode(prevNode);
+			prevNode = runner;
+			runner = nextNode;
+		}
+		
+		head.setNextNode(prevNode);
 	}
 	
 	private class Node{
